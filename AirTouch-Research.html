@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="" data-theme="dark">
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="https://chat.openai.com/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PCL in College.</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        hljs.highlightAll()
+    </script>
+
+    <style>
+        :root {
+            --tw-prose-code: #111827;
+            --tw-prose-hr: #e5e7eb;
+            --tw-prose-links: #111827;
+            --tw-prose-headings: #111827;
+            --tw-prose-quotes: #111827;
+            --tw-prose-counters: #6b7280;
+            --page-bg: #f7f7f8;
+            --page-text: #374151;
+            --conversation-odd-bg: rgba(247,247,248);
+            --th-boarders: #4b5563;
+            --td-boarders: #374151;
+            --meta-title: #616c77;
+        }
+
+        [data-theme="dark"] {
+            --tw-prose-code: #f9fafb;
+            --tw-prose-hr: #374151;
+            --tw-prose-links: #fff;
+            --tw-prose-headings: #fff;
+            --tw-prose-quotes: #f3f4f6;
+            --tw-prose-counters: #9ca3af;
+            --page-bg: rgba(52,53,65);
+            --page-text: #fff;
+            --conversation-odd-bg: rgb(68,70,84);
+            --meta-title: #959faa;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        ::-webkit-scrollbar {
+            height: 1rem;
+            width: .5rem
+        }
+
+        ::-webkit-scrollbar:horizontal {
+            height: .5rem;
+            width: 1rem
+        }
+
+        ::-webkit-scrollbar-track {
+            background-color: transparent;
+            border-radius: 9999px
+        }
+
+        ::-webkit-scrollbar-thumb {
+            --tw-border-opacity: 1;
+            background-color: rgba(217,217,227,.8);
+            border-color: rgba(255,255,255,var(--tw-border-opacity));
+            border-radius: 9999px;
+            border-width: 1px
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgba(236,236,241,var(--tw-bg-opacity))
+        }
+
+        .dark ::-webkit-scrollbar-thumb {
+            --tw-bg-opacity: 1;
+            background-color: rgba(86,88,105,var(--tw-bg-opacity))
+        }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgba(172,172,190,var(--tw-bg-opacity))
+        }
+
+        @media (min-width: 768px) {
+            .scrollbar-trigger ::-webkit-scrollbar-thumb {
+                visibility:hidden
+            }
+
+            .scrollbar-trigger:hover ::-webkit-scrollbar-thumb {
+                visibility: visible
+            }
+        }
+
+        body {
+            font-family: Söhne,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif,Helvetica Neue,Arial,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji;
+            font-size: 14px;
+            line-height: 1.5;
+            color: var(--page-text);
+            background-color: var(--page-bg);
+            margin: 0;
+            padding: 0;
+        }
+
+        [data-theme="light"] .sun {
+            display: none;
+        }
+
+        [data-theme="dark"] .moon {
+            display: none;
+        }
+
+        .toggle {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            background-color: #fff;
+            border: 1px solid #e2e8f0;
+        }
+
+        .metadata_container {
+            display: flex;
+            flex-direction: column;
+            margin-top: 8px;
+            padding-left: 1rem;
+        }
+
+        .metadata_item {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            border-radius: 16px;
+            padding: 4px 0.5rem;
+        }
+
+        .metadata_item:hover {
+            background-color: rgba(0,0,0,.1);
+        }
+
+        .metadata_item > div:first-child {
+            flex: 0 1 100px;
+            color: var(--meta-title);
+        }
+
+        .metadata_item > div:last-child {
+            flex: 1;
+        }
+
+        a {
+            color: var(--tw-prose-links);
+            font-size: 0.8rem;
+            text-decoration-line: underline;
+            text-underline-offset: 2px;
+        }
+
+        .conversation-content > p:first-child,
+        ol:first-child {
+            margin-top: 0;
+        }
+
+        p>code, li>code {
+            color: var(--tw-prose-code);
+            font-weight: 600;
+            font-size: .875em;
+        }
+
+        p>code::before,
+        p>code::after,
+        li>code::before,
+        li>code::after {
+            content: "`";
+        }
+
+        hr {
+            width: 100%;
+            height: 0;
+            border: 1px solid var(--tw-prose-hr);
+            margin-bottom: 1em;
+            margin-top: 1em;
+        }
+
+        pre {
+            color: #ffffff;
+            background-color: #000000;
+            overflow-x: auto;
+            margin: 0 0 1rem 0;
+            border-radius: 0.375rem;
+        }
+
+        pre>code {
+            font-family: Söhne Mono, Monaco, Andale Mono, Ubuntu Mono, monospace !important;
+            font-weight: 400;
+            font-size: .875em;
+            line-height: 1.7142857;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            color: var(--tw-prose-headings);
+            margin: 0;
+        }
+
+        h1 {
+            font-size: 2.25em;
+            font-weight: 600;
+            line-height: 1.1111111;
+            margin-bottom: 0.8888889em;
+            margin-top: 0;
+        }
+
+        h2 {
+            font-size: 1.5em;
+            font-weight: 700;
+            line-height: 1.3333333;
+            margin-bottom: 1em;
+            margin-top: 2em;
+        }
+
+        h3 {
+            font-size: 1.25em;
+            font-weight: 600;
+            line-height: 1.6;
+            margin-bottom: .6em;
+            margin-top: 1.6em;
+        }
+
+        h4 {
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: .5em;
+            margin-top: 1.5em
+        }
+
+        h3,h4 {
+            margin-bottom: .5rem;
+            margin-top: 1rem;
+        }
+
+        h5 {
+            font-weight: 600;
+        }
+
+        blockquote {
+            border-left: 2px solid rgba(142,142,160,1);
+            color: var(--tw-prose-quotes);
+            font-style: italic;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 1rem;
+            margin: 1.6em 0;
+            padding-left: 1em;
+            quotes: "\201C""\201D""\2018""\2019";
+        }
+
+        blockquote p:first-of-type:before {
+            content: open-quote;
+        }
+
+        blockquote p:last-of-type:after {
+            content: close-quote;
+        }
+
+        ol, ul {
+            padding-left: 1.1rem;
+        }
+
+        ::marker {
+            color: var(--tw-prose-counters);
+            font-weight: 400;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 0;
+            table-layout: auto;
+            text-align: left;
+            font-size: .875em;
+            line-height: 1.7142857;
+        }
+
+        table * {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: #d9d9e3;
+        }
+
+        table thead {
+            border-bottom-color: var(--th-boarders);
+            border-bottom-width: 1px;
+        }
+
+        table th {
+            background-color: rgba(236,236,241,.2);
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            border-top-width: 1px;
+            padding: 0.25rem 0.75rem;
+        }
+
+        table th:first-child {
+            border-top-left-radius: 0.375rem;
+        }
+
+        table th:last-child {
+            border-right-width: 1px;
+            border-top-right-radius: 0.375rem;
+        }
+
+        table tbody tr {
+            border-bottom-color: var(--td-boarders);
+            border-bottom-width: 1px;
+        }
+
+        table tbody tr:last-child {
+            border-bottom-width: 0;
+        }
+
+        table tbody tr:last-child td:first-child {
+            border-bottom-left-radius: 0.375rem;
+        }
+
+        table tbody tr:last-child td:last-child {
+            border-bottom-right-radius: 0.375rem;
+        }
+
+        table td {
+            border-bottom-width: 1px;
+            border-left-width: 1px;
+            padding: 0.25rem 0.75rem;
+        }
+
+        table td:last-child {
+            border-right-width: 1px;
+        }
+
+        [type=checkbox], [type=radio] {
+            accent-color: #2563eb;
+        }
+
+        .conversation {
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 1rem;
+        }
+
+        .conversation-header {
+            margin-bottom: 1rem;
+        }
+
+        .conversation-header h1 {
+            margin: 0;
+        }
+
+        .conversation-header h1 a {
+            font-size: 1.5rem;
+        }
+
+        .conversation-header .conversation-export {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .conversation-header p {
+            margin-top: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        .conversation-item {
+            display: flex;
+            position: relative;
+            padding: 1rem;
+            border-left: 1px solid rgba(0,0,0,.1);
+            border-right: 1px solid rgba(0,0,0,.1);
+            border-bottom: 1px solid rgba(0,0,0,.1);
+        }
+
+        .conversation-item:first-of-type {
+            border-top: 1px solid rgba(0,0,0,.1);
+        }
+
+        .conversation-item:nth-child(odd) {
+            background-color: var(--conversation-odd-bg);
+        }
+
+        .author {
+            display: flex;
+            flex: 0 0 30px;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 0.125rem;
+            margin-right: 1rem;
+            overflow: hidden;
+        }
+
+        .author svg {
+            color: #fff;
+            width: 22px;
+            height: 22px;
+        }
+
+        .author img {
+            content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAABRFJREFUWEftl1tsFFUcxn/nzOxst6WUbikBpETlVoKNiTFiE33wkmgThSc0JCa+GOubUUl8A9QnjG0jyoOJNkiMiVEwaky4iRI18ECsMSDIJSCVS2+0ILTdnZlzzDmzszu7baF9kCfmZefMnD3nO9/3/S8jVr1zQFO4lFJorVG6+Ch+ZX8FGjHFu3iiKNyUrSDAjKNnZkY8C8QdACvf2l9ky9BvrliCElExwTeXIDl/MgmiVSokaN68r2xuUn+7oE4qVlKyUvPkeOKswr52pwoAyzftndxxxnBmetnbeFB6WL5cbNXYcGUeLgzKeRWTA4j9aigv0R+ZN4GowE7C03aygT7FqSYgKgNQWigZNKVTS1Hyhz2rFomAikNNoAthZ8PWzKg0RALGRAD2VAUAxeNHZxIFhH7et0tUpTMIJIEfIKVgNDeG8Dy0A1ooHAQp7UQsWhyTCJaUoKR5EkB0b0EphZQSz/MsgHwujw41VekqpCO4MT4GnoevFUJqPNdFjQeWqRIRN/FAOQBVcGAJgMmC1ZlqenvPWwCLmxYxdv0a/f19eGmPnB8gvAw1tbPJVGeQSFQQGjoSAMptIFZs2lOukB0ZHcyNKp7eMqBh5MoV1qxZY1f5/ttdZGtSrF//PI0L0kgP+vph7w+H6b00gJQujhB2KYNh0pho3rh7isSf2NwmqEjBSxcv0tXZzunT8NHWLrrefo3ZtfBLz2V8HFY/2MjIddi45XOy8xaCn0MWEtxkG4nJAcQMRJkvcnMJQKcBcAo+3trBd9vf4M0NHRz7e4Cahvm4aY97mls4efkaWnqk0TjaHGZGDEwPQPf777Fr2wZEDvYcPMTBnmOcHs6jZjWQqs3i+yEZwElUUBGHUpyWpmSgkINj2iQKqRV9F8olaGtt4YV1T7IgC8MKzvTDjq8PcuKfK6TSs/BUWJTA5o5bAYi8EmmuhMCXrv2TowMyjmDg/Hm2dr3Ebz0B3Z9tZ/69izh77gyrW1p4+L4lrH3kLm4E0L75K/5VNdR4Jg/MQIIoVUQAQiFQrkd//2Wq3YCmbB2DZ8/R8e6r9BwfZ9sn3dQtbAQJrlbc6P2Lpd4InR90smXnnxw6cYGMg2Vu2h5IAjAwhq9d5dHWB8im8xz45kueeqiV9van6fi0h8GhEV5+7jH27zvMnl9/pkrkeeXZx7m/tZXXd/zEyaFx6tMOrgqL+99UgjhU41Ki0QwOD7K27QnWtS1kbAjmZuDUmTxd3V9QXzeXF59pY8USGMpD2oUF1bBz91E+3HuE2U1LcXKjZVEwAcDKijyQLEhKgC9hsO8Sq+5ezMply7jYP8AfR49TXzcPdIqx0YC5c7I0zWukoSHDkd9/JJCQE7MISSFQZbVxxgACqXCkQyoUDA1fRVdlmFOfxfFDcuMhgcwQBgo3n0OQQ1cFOC44ypjPVMby9DNDCUK0DFGhCUGX6tp6xpXG9wNSaALfxzdp3nVxrdtBBRplqqNWyEQvHJtgBmFooiHE8ySmXXecKkbHfbSTQjqSlIC8nyMkRDuCwGoncUMPYeoYoQ2/ytbklgBipNIkDEtfoQ4IGX8Z2Cn2+6DQoBivxD2UqV+2/E6zLxLNmyqKUUEyYdqf4mWaEdPbJFs0C8N20DqR3bSabjMWLS5WVACI0JuUmfyA+R8BLE8AMGeMTXsbAZQakqgjivQrqmqlKPUDsqwNLRTqhFrxx82UubfixYSmNGLgDoDbx8B/T5mxDHx9dvIAAAAASUVORK5CYII=);
+            width: 100%;
+            height: 100%;
+        }
+
+        .author.GPT-3 {
+            background-color: rgb(16, 163, 127);
+        }
+
+        .author.GPT-4 {
+            background-color: black;
+        }
+
+        .conversation-content-wrapper {
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            flex: 1 1 auto;
+            flex-direction: column;
+        }
+
+        .conversation-content {
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .conversation-content p {
+            white-space: pre-wrap;
+            line-height: 28px;
+        }
+
+        .conversation-content img, .conversation-content video {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 2em;
+            margin-top: 2em;
+        }
+
+        .time {
+            position: absolute;
+            right: 8px;
+            bottom: 0;
+            font-size: 0.8rem;
+            color: #acacbe
+        }
+    </style>
+</head>
+
+<body>
+    <svg aria-hidden="true" style="position: absolute; width: 0; height: 0; overflow: hidden;" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <symbol id="chatgpt" viewBox="0 0 41 41">
+            <path d="M37.5324 16.8707C37.9808 15.5241 38.1363 14.0974 37.9886 12.6859C37.8409 11.2744 37.3934 9.91076 36.676 8.68622C35.6126 6.83404 33.9882 5.3676 32.0373 4.4985C30.0864 3.62941 27.9098 3.40259 25.8215 3.85078C24.8796 2.7893 23.7219 1.94125 22.4257 1.36341C21.1295 0.785575 19.7249 0.491269 18.3058 0.500197C16.1708 0.495044 14.0893 1.16803 12.3614 2.42214C10.6335 3.67624 9.34853 5.44666 8.6917 7.47815C7.30085 7.76286 5.98686 8.3414 4.8377 9.17505C3.68854 10.0087 2.73073 11.0782 2.02839 12.312C0.956464 14.1591 0.498905 16.2988 0.721698 18.4228C0.944492 20.5467 1.83612 22.5449 3.268 24.1293C2.81966 25.4759 2.66413 26.9026 2.81182 28.3141C2.95951 29.7256 3.40701 31.0892 4.12437 32.3138C5.18791 34.1659 6.8123 35.6322 8.76321 36.5013C10.7141 37.3704 12.8907 37.5973 14.9789 37.1492C15.9208 38.2107 17.0786 39.0587 18.3747 39.6366C19.6709 40.2144 21.0755 40.5087 22.4946 40.4998C24.6307 40.5054 26.7133 39.8321 28.4418 38.5772C30.1704 37.3223 31.4556 35.5506 32.1119 33.5179C33.5027 33.2332 34.8167 32.6547 35.9659 31.821C37.115 30.9874 38.0728 29.9178 38.7752 28.684C39.8458 26.8371 40.3023 24.6979 40.0789 22.5748C39.8556 20.4517 38.9639 18.4544 37.5324 16.8707ZM22.4978 37.8849C20.7443 37.8874 19.0459 37.2733 17.6994 36.1501C17.7601 36.117 17.8666 36.0586 17.936 36.0161L25.9004 31.4156C26.1003 31.3019 26.2663 31.137 26.3813 30.9378C26.4964 30.7386 26.5563 30.5124 26.5549 30.2825V19.0542L29.9213 20.998C29.9389 21.0068 29.9541 21.0198 29.9656 21.0359C29.977 21.052 29.9842 21.0707 29.9867 21.0902V30.3889C29.9842 32.375 29.1946 34.2791 27.7909 35.6841C26.3872 37.0892 24.4838 37.8806 22.4978 37.8849ZM6.39227 31.0064C5.51397 29.4888 5.19742 27.7107 5.49804 25.9832C5.55718 26.0187 5.66048 26.0818 5.73461 26.1244L13.699 30.7248C13.8975 30.8408 14.1233 30.902 14.3532 30.902C14.583 30.902 14.8088 30.8408 15.0073 30.7248L24.731 25.1103V28.9979C24.7321 29.0177 24.7283 29.0376 24.7199 29.0556C24.7115 29.0736 24.6988 29.0893 24.6829 29.1012L16.6317 33.7497C14.9096 34.7416 12.8643 35.0097 10.9447 34.4954C9.02506 33.9811 7.38785 32.7263 6.39227 31.0064ZM4.29707 13.6194C5.17156 12.0998 6.55279 10.9364 8.19885 10.3327C8.19885 10.4013 8.19491 10.5228 8.19491 10.6071V19.808C8.19351 20.0378 8.25334 20.2638 8.36823 20.4629C8.48312 20.6619 8.64893 20.8267 8.84863 20.9404L18.5723 26.5542L15.206 28.4979C15.1894 28.5089 15.1703 28.5155 15.1505 28.5173C15.1307 28.5191 15.1107 28.516 15.0924 28.5082L7.04046 23.8557C5.32135 22.8601 4.06716 21.2235 3.55289 19.3046C3.03862 17.3858 3.30624 15.3413 4.29707 13.6194ZM31.955 20.0556L22.2312 14.4411L25.5976 12.4981C25.6142 12.4872 25.6333 12.4805 25.6531 12.4787C25.6729 12.4769 25.6928 12.4801 25.7111 12.4879L33.7631 17.1364C34.9967 17.849 36.0017 18.8982 36.6606 20.1613C37.3194 21.4244 37.6047 22.849 37.4832 24.2684C37.3617 25.6878 36.8382 27.0432 35.9743 28.1759C35.1103 29.3086 33.9415 30.1717 32.6047 30.6641C32.6047 30.5947 32.6047 30.4733 32.6047 30.3889V21.188C32.6066 20.9586 32.5474 20.7328 32.4332 20.5338C32.319 20.3348 32.154 20.1698 31.955 20.0556ZM35.3055 15.0128C35.2464 14.9765 35.1431 14.9142 35.069 14.8717L27.1045 10.2712C26.906 10.1554 26.6803 10.0943 26.4504 10.0943C26.2206 10.0943 25.9948 10.1554 25.7963 10.2712L16.0726 15.8858V11.9982C16.0715 11.9783 16.0753 11.9585 16.0837 11.9405C16.0921 11.9225 16.1048 11.9068 16.1207 11.8949L24.1719 7.25025C25.4053 6.53903 26.8158 6.19376 28.2383 6.25482C29.6608 6.31589 31.0364 6.78077 32.2044 7.59508C33.3723 8.40939 34.2842 9.53945 34.8334 10.8531C35.3826 12.1667 35.5464 13.6095 35.3055 15.0128ZM14.2424 21.9419L10.8752 19.9981C10.8576 19.9893 10.8423 19.9763 10.8309 19.9602C10.8195 19.9441 10.8122 19.9254 10.8098 19.9058V10.6071C10.8107 9.18295 11.2173 7.78848 11.9819 6.58696C12.7466 5.38544 13.8377 4.42659 15.1275 3.82264C16.4173 3.21869 17.8524 2.99464 19.2649 3.1767C20.6775 3.35876 22.0089 3.93941 23.1034 4.85067C23.0427 4.88379 22.937 4.94215 22.8668 4.98473L14.9024 9.58517C14.7025 9.69878 14.5366 9.86356 14.4215 10.0626C14.3065 10.2616 14.2466 10.4877 14.2479 10.7175L14.2424 21.9419ZM16.071 17.9991L20.4018 15.4978L24.7325 17.9975V22.9985L20.4018 25.4983L16.071 22.9985V17.9991Z" fill="currentColor"></path>
+        </symbol>
+    </svg>
+    <div class="conversation">
+        <div class="conversation-header">
+            <h1>
+                <a href="https://chat.openai.com/chat/01965062-4fea-499b-be6e-d9efc3ee57f8" target="_blank" rel="noopener noreferrer">PCL in College.</a>
+                <button class="toggle">
+                    <svg class="sun" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="moon" stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+            </h1>
+            <div class="conversation-export">
+                <p>Exported by
+                <a href="https://github.com/pionxzh/chatgpt-exporter">ChatGPT Exporter</a>
+                at 2023-04-06T11:33:12.453Z</p>
+            </div>
+            
+        </div>
+
+        
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>do u know whats PCL in college?</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:28:29 UTC">03:58 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>In college, PCL could refer to several different things depending on the context. Here are some of the most common meanings of PCL in a college setting:</p>
+<ol>
+<li>
+<p>Posterior Cruciate Ligament: PCL is one of the four major ligaments in the knee joint that provides stability to the knee. Students studying sports medicine, kinesiology, or other related fields may study the anatomy, function, injuries, and treatments related to the PCL.</p>
+</li>
+<li>
+<p>Portland Community College: PCL is an abbreviation for Portland Community College, a public community college located in Portland, Oregon. Students and faculty at this college may use this acronym to refer</p>
+</li>
+</ol>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:28:39 UTC">03:58 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>okay, for me PCL is Projct Centric Learning</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:38:22 UTC">04:08 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Thank you for the clarification. Project-Centered Learning (PCL) is an educational approach that emphasizes hands-on, project-based learning. It involves students working on real-world projects and solving complex problems in a collaborative, interdisciplinary environment. PCL aims to develop students' critical thinking, problem-solving, communication, and leadership skills, as well as their ability to work in teams and adapt to changing circumstances. This approach is often used in engineering, computer science, business, and other fields that require practical skills and real-world experience.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:38:30 UTC">04:08 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>for us, PCL is a 4 year course where we need to form teams of 5 members and create a technology based of what we are studying (in my case, thats CSE-AI).
+Our team decided on making a AI-based Touch technology called AirTouch which is a small sensor which can be attached to any screen to simulate a touch screen interface.
+The entire concept hasnt been planned out yet, but we have the idea of using a radiowave sensor that detects user&#039;s finger touch on the screen and sends click events to the device which the AirTouch is connected to.
+</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:42:30 UTC">04:12 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>That sounds like an exciting and innovative project! Creating an AI-based touch technology like AirTouch can be a challenging but rewarding task that can help you develop your skills in computer science, engineering, and project management.</p>
+<p>To make your project successful, you may want to consider breaking it down into smaller, manageable tasks and creating a project plan or roadmap that outlines your goals, timelines, and resources needed. You may also want to consider conducting research on existing touch technologies and exploring different AI models and algorithms that can help you achieve your goals.</p>
+<p>In addition, you may want to consider creating a prototype or proof-of-concept of your technology to test and refine your ideas before implementing them on a larger scale. Collaborating and communicating effectively with your team members, as well as seeking feedback and guidance from your instructors and mentors, can also help you overcome challenges and ensure that your project is on track.</p>
+<p>Good luck with your project!</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:42:44 UTC">04:12 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Great! Now i Have 2 queries...
+1) I thought abt how we could use ultra sound to detect the user&#039;s point of touch, but is it actually feasible (without any lag) or are there any better alternatives? The main point in using radiowaves is to avoid a need for something like a capacitative touch which ruins the entire point of &#039;Not needing a external screen&#039;.
+2) I would like to get the opinions of an Individual (preferably someone who is successful, interactive and would find it fun to help us out with our project) and have them guide us on the technical aspects of the project, so How do I find such a person? I want to get in touch with them on WA or Discord.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:49:00 UTC">04:19 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <ol>
+<li>Using ultrasound to detect the user's point of touch can be a feasible approach, but there may be some technical challenges to consider. Ultrasound sensors can provide high accuracy and resolution, but they also have limitations such as sensitivity to environmental factors like noise and temperature changes. Additionally, ultrasound-based touch sensing may require specialized hardware and software, which can add complexity and cost to the project.</li>
+</ol>
+<p>There are other alternatives to consider, such as using infrared sensors or optical cameras to detect touch events. These technologies have their own advantages and disadvantages, so it's important to evaluate them based on your specific requirements and constraints. Capacitive touch sensing can also be an option if external screens are not desired, as it can be integrated directly into a device's screen or touchpad.</p>
+<ol start="2">
+<li>Finding an individual with the qualifications and interest in guiding your project can be challenging, but there are some resources available to help you. You can start by reaching out to your college's faculty or alumni network to see if they can recommend someone with the relevant expertise. You can also look for online communities and forums related to your project's area of focus and see if you can find someone who is willing to help.</li>
+</ol>
+<p>Another option is to reach out to industry professionals or experts through professional networking sites like LinkedIn or Twitter. You can also try attending relevant conferences or events and network with attendees to find someone who can provide guidance. When contacting individuals, it's important to be clear about your project's goals and the level of involvement you are seeking. Good luck with your project!</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:49:22 UTC">04:19 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Let&#039;s get to the part abt detecting finger....
+I definietly wanna avoid a capacitative touch or anything similar that involves placing (or using) a screen for detecting touch.
+I think range sensors would be a good option to go with. But remember... Power efficience and low lag are a critical concern</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:55:23 UTC">04:25 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Range sensors like ultrasonic or infrared sensors can be a good option for detecting touch without the need for a screen or capacitive touch technology. These sensors can detect the distance between the sensor and the finger, allowing you to determine the location of the touch.</p>
+<p>To ensure power efficiency and low lag, you may want to consider using a low-power microcontroller or processor, such as the Arduino or Raspberry Pi. You can also optimize your software to minimize the processing time needed for touch detection and event triggering. Additionally, you may want to use efficient and lightweight communication protocols, such as Bluetooth or Wi-Fi, to minimize the energy consumption of the device.</p>
+<p>One potential challenge with range sensors is that they can be affected by environmental factors such as noise and interference, which can cause inaccuracies in touch detection. To address this, you may want to consider using multiple sensors or implementing noise-reduction algorithms to improve the accuracy of touch detection.</p>
+<p>Ultimately, the choice of sensor and hardware will depend on your specific project requirements and constraints. It's a good idea to do some research and experimentation to find the best approach for your project.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:55:39 UTC">04:25 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>for arduino, which is the best language.. JS or Java? (Or is there a better alternative)</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:55:59 UTC">04:25 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Arduino is programmed using the Arduino Integrated Development Environment (IDE), which is based on the C++ programming language. While JavaScript and Java are both popular programming languages, they are not natively supported by the Arduino IDE.</p>
+<p>However, there are third-party libraries and tools available that allow you to program Arduino boards using JavaScript or Java. For example, there is a library called "Johnny-Five" that allows you to use JavaScript to interact with Arduino boards. Similarly, there is a tool called "Processing" that allows you to use Java to program Arduino boards.</p>
+<p>That being said, if you are new to programming or to the Arduino platform, I would recommend starting with C++ and using the Arduino IDE. The IDE is designed to be beginner-friendly and provides a simplified interface for programming Arduino boards. There are also many resources available online, including tutorials and examples, to help you get started with Arduino programming using C++.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:56:12 UTC">04:26 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>In a table, list (with accurate numeric data) the various options I could go with for a range sensor (like Ultrasound, IR, etc) and mention stuff like their average power usage and latency</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:58:34 UTC">04:28 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Sure, here's a table outlining some common range sensors along with their average power usage and latency:</p>
+<table>
+<thead>
+<tr>
+<th>Sensor Type</th>
+<th>Average Power Usage</th>
+<th>Latency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ultrasonic</td>
+<td>15-20 mA</td>
+<td>20-100 ms</td>
+</tr>
+<tr>
+<td>Infrared</td>
+<td>5-15 mA</td>
+<td>1-10 ms</td>
+</tr>
+<tr>
+<td>Time-of-flight</td>
+<td>1-10 mA</td>
+<td>1-5 ms</td>
+</tr>
+<tr>
+<td>Laser</td>
+<td>20-50 mA</td>
+<td>&#x3C;1 ms</td>
+</tr>
+</tbody>
+</table>
+<p>Note that the power usage and latency of a particular sensor can vary depending on various factors such as the sensor's range, accuracy, and operating frequency. Additionally, the actual power usage and latency of a sensor in a real-world application will depend on factors such as the specific hardware and software implementation, the power source used, and the overall system design.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:58:48 UTC">04:28 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>whats this TOF?</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:59:01 UTC">04:29 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Time-of-flight (TOF) is a range sensing technology that uses light or sound waves to measure the distance between the sensor and an object. In a TOF sensor, a light or sound pulse is emitted and the time it takes for the pulse to bounce back to the sensor is measured. By calculating the time it takes for the pulse to travel, the sensor can determine the distance to the object.</p>
+<p>TOF sensors are commonly used in applications such as robotics, drones, and 3D scanning. They offer several advantages over other range sensing technologies, including high accuracy, low power consumption, and fast response times. Additionally, they can be used in a wide range of environments and lighting conditions.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 10:59:11 UTC">04:29 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>hmm... this looks like it&#039;d be perfect for the Range Sensors (way better than my idea of going with ultrasound).
+Do they pose any medical/other drawbacks?
+Can they be programmed with Arduino?</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:00:45 UTC">04:30 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>TOF sensors have several advantages over other range sensing technologies, but there are also some potential drawbacks to consider.</p>
+<p>One potential issue is that TOF sensors may be sensitive to ambient lighting conditions, which can affect their accuracy. For example, bright sunlight or artificial lighting may interfere with the sensor's ability to detect and measure reflected light. Additionally, the accuracy of the sensor may be affected by the reflectivity of the object being measured, as well as the distance between the sensor and the object.</p>
+<p>In terms of programming with Arduino, there are several TOF sensors available that can be interfaced with an Arduino board. For example, the VL53L0X sensor from STMicroelectronics is a popular TOF sensor that can be used with Arduino boards. There are also libraries and example code available online that can help you get started with programming a TOF sensor with Arduino.</p>
+<p>It's important to note that like any electronic component, proper handling and use of the TOF sensor is required to prevent any negative impact on health or safety. It's important to follow the manufacturer's guidelines and use the sensor in accordance with its intended purpose.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:01:01 UTC">04:31 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>in Arduino, which lang does Ardublocks use?</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:02:12 UTC">04:32 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Ardublocks is a visual programming environment for Arduino that allows users to program Arduino boards using a block-based programming language similar to Scratch. The language used in Ardublocks is based on the Arduino programming language, which is a simplified version of C++.</p>
+<p>When you use Ardublocks to create a program, it generates the corresponding C++ code behind the scenes and compiles it into a format that can be uploaded to an Arduino board. This allows users with little or no experience in programming to create programs for Arduino boards using a visual interface. However, it's worth noting that Ardublocks may not be as flexible or powerful as programming directly in C++ or another programming language supported by Arduino.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:02:22 UTC">04:32 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>okay, then I think I&#039;ll put together all the information so far together to explain the functioning of the AirTouch. Look for any discrepancies.
+
+1) The AirTouch uses two TOF Range sensors placed 5cm apart for each other.
+2) The 2 sensors ping signals in unison at a frequency of 200hz.
+3) When the sensors detect an Object the width of 13-20mm (width of human finger), the position of the finger is triangulated with the 3 points A, B &amp; C.
+   &gt; A  is Sensor A, B is Sensor B &amp; C is Finger.
+4) the position is then converted into X-Y coordinates based on size of the screen and then is returned to the device which the AirTouch is connected to as a single ClickEvent(X, Y).
+5) The process goes back to step 1 and repeats as long as the AirTouch is powered on.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:10:57 UTC">04:40 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Your explanation of the functioning of the AirTouch using two TOF Range sensors seems accurate based on the information you've provided. However, there are a few points that you might want to consider:</p>
+<ol>
+<li>
+<p>The accuracy of the triangulation will depend on the accuracy and precision of the range sensors and the distance between the sensors. You might need to calibrate the sensors and adjust the distance between them to optimize the accuracy of the triangulation.</p>
+</li>
+<li>
+<p>The frequency of 200Hz might be too low to provide a smooth and responsive touch experience. You might want to consider increasing the frequency or using other techniques to reduce latency and improve responsiveness.</p>
+</li>
+<li>
+<p>Depending on the size of the screen and the resolution of the X-Y coordinates, you might need to apply some scaling or mapping to ensure that the touch input is accurately mapped to the screen coordinates.</p>
+</li>
+</ol>
+<p>Overall, the concept of using TOF range sensors to create an AirTouch device seems promising, and I wish you the best of luck with your project!</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:11:12 UTC">04:41 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>1) 5cm seems ideal to maintain compactness as well as provide good enough accurace (Can you calculate the margin of error in this case-&gt; assume that gap between sensors is 5cm and finger is placed exactly in between them, but at a distance of 15 cm south. Provide the answer as a error of how much mm).
+
+2) 200hz would provide something close to a 5ms rate which seems good enough if I want to have a good power efficiency (calculate the power usage for 5 mins and compare them against typical power usage of a capacitative touch for 5 mins).
+
+3) For now all testing would be done on a 15.6&quot; laptop with a resolution of 1920x1080. (Calculate the margin of error and power usage under the above mentioned conditions assuming the user touched in the exact middle of the screen.)</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:17:58 UTC">04:47 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <ol>
+<li>If the gap between the sensors is 5cm and the finger is placed exactly in between them, but at a distance of 15cm south, the margin of error can be calculated using trigonometry.</li>
+</ol>
+<p>Let's consider the following diagram:</p>
+<pre><code>   A       B
+   |-------|
+   |       |
+   |   C   |
+   |       |
+   |-------|
+</code></pre>
+<p>Where A and B represent the two sensors, C represents the finger, and the gap between A and B is 5cm.</p>
+<p>Using the Pythagorean theorem, we can calculate the distance between the finger and each sensor:</p>
+<pre><code>Distance from A to C = sqrt((15^2) + (2.5^2)) = 15.13cm
+Distance from B to C = sqrt((15^2) + (2.5^2)) = 15.13cm
+</code></pre>
+<p>Therefore, the margin of error in this case would be the difference between these two distances:</p>
+<pre><code>Margin of error = 15.13cm - 15.13cm = 0cm
+</code></pre>
+<p>This means that the position of the finger can be accurately triangulated with no margin of error in this case.</p>
+<ol start="2">
+<li>A frequency of 200Hz would provide a rate of 5ms per ping. Let's assume that each ping lasts for 0.1ms and the AirTouch is powered on for 5 minutes (300 seconds). The total number of pings would be:</li>
+</ol>
+<pre><code>Total number of pings = (300 seconds) / (0.005 seconds per ping) = 60,000 pings
+</code></pre>
+<p>The power usage of the AirTouch would depend on various factors such as the power consumption of the TOF sensors and the microcontroller, the voltage and current of the power source, and the efficiency of the voltage regulator. Without knowing the exact specifications of your components, it's difficult to provide an accurate estimate of the power usage. However, you can measure the actual power consumption using a multimeter or a power monitor.</p>
+<p>For comparison, the power usage of a capacitive touch screen would also depend on various factors such as the size and resolution of the screen, the sensitivity of the touch controller, and the power management features of the device. According to some estimates, the power consumption of a capacitive touch screen can range from a few milliwatts to several watts depending on the device and usage.</p>
+<ol start="3">
+<li>If the testing is done on a 15.6" laptop with a resolution of 1920x1080 and the user touches in the exact middle of the screen, the margin of error can be calculated as follows:</li>
+</ol>
+<p>The distance between the sensors would be:</p>
+<pre><code>Gap between sensors = screen width / 2 = 15.6" / 2 = 7.8"
+</code></pre>
+<p>Using the Pythagorean theorem, we can calculate the maximum distance between the finger and each sensor:</p>
+<pre><code>Max distance from A to C = sqrt((15^2) + (7.8^2)) = 16.84cm
+Max distance from B to C = sqrt((15^2) + (7.8^2)) = 16.84cm
+</code></pre>
+<p>Therefore, the maximum margin of error in this case would be the difference between these two distances:</p>
+<pre><code>Max margin of error = 16.84cm - 16.84cm = 0cm
+</code></pre>
+<p>Again, this means that the position of the finger can be accurately triangulated with no margin of error in this case.</p>
+<p>The power usage of the AirTouch under these conditions would depend on the same factors as mentioned in the previous answer.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:18:53 UTC">04:48 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author user">
+        <img alt="You" />
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>okay now that u got the distances between A, B &amp; C as
+    Max distance from A to C = sqrt((15^2) + (7.8^2)) = 16.84cm
+    Max distance from B to C = sqrt((15^2) + (7.8^2)) = 16.84cm
+Calculate the X Y coordinates (in pixels for a resolution of 1920x1080) for the click event and provide the answer as C++ Code for such a click event using setCursorPos(X, Y) and then a mouse_event() )</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:32:23 UTC">05:02 PM</div>
+</div>
+
+
+<div class="conversation-item">
+    <div class="author GPT-3">
+        <svg width="41" height="41"><use xlink:href="#chatgpt" /></svg>
+    </div>
+    <div class="conversation-content-wrapper">
+        <div class="conversation-content">
+            <p>Sure, based on the distances between A, B and C and the resolution of the screen, the X and Y coordinates for the click event can be calculated as follows:</p>
+<pre><code class="language-c++">int screenWidth = 1920;
+int screenHeight = 1080;
+float distanceAC = 16.84; // in cm
+float distanceBC = 16.84; // in cm
+float distanceAB = 5.0; // in cm, the distance between the sensors
+float pixelPerCmX = screenWidth / 39.37; // 1 inch = 2.54 cm, so 1 cm = 1/2.54 inch, and 1 inch = 96 pixels
+float pixelPerCmY = screenHeight / 21.65; // 1 inch = 2.54 cm, so 1 cm = 1/2.54 inch, and 1 inch = 96 pixels
+float fingerPosX = (distanceAC * distanceAC - distanceBC * distanceBC + distanceAB * distanceAB) / (2 * distanceAB);
+float fingerPosY = sqrt(distanceAC * distanceAC - fingerPosX * fingerPosX);
+int x = fingerPosX * pixelPerCmX;
+int y = fingerPosY * pixelPerCmY;
+
+// Set the cursor position
+SetCursorPos(x, y);
+
+// Send a left mouse button click event
+mouse_event(MOUSEEVENTF_LEFTDOWN, x, y, 0, 0);
+mouse_event(MOUSEEVENTF_LEFTUP, x, y, 0, 0);
+</code></pre>
+<p>Note: This code assumes that the origin of the screen is at the top left corner. If the origin is at a different location, the calculation for <code>x</code> and <code>y</code> may need to be adjusted accordingly.</p>
+        </div>
+    </div>
+    <div class="time" title="2023-04-06 11:32:51 UTC">05:02 PM</div>
+</div>
+    </div>
+
+
+    <script>
+        function toggleDarkMode(mode) {
+            const html = document.querySelector('html')
+            const isDarkMode = html.getAttribute('data-theme') === 'dark'
+            const newMode = mode || (isDarkMode ? 'light' : 'dark')
+            if (newMode !== 'dark' && newMode !== 'light') return
+            html.setAttribute('data-theme', newMode)
+
+            const url = new URL(window.location)
+            url.searchParams.set('theme', newMode)
+            window.history.replaceState({}, '', url)
+        }
+
+        // Support for ?theme=dark
+        const urlParams = new URLSearchParams(window.location.search)
+        const theme = urlParams.get('theme')
+        if (theme) toggleDarkMode(theme)
+
+        document.querySelector('.toggle').addEventListener('click', () => toggleDarkMode())
+    </script>
+</body>
+
+</html>
